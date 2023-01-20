@@ -14,7 +14,18 @@ from typing import Dict,List
 
 
 def insertNewTweet():
-    headers = bearer_token()
+    ids = listTtstandy()
+    for i in ids:
+        dataframe,url = requestContentTweet(i)
+        like = dataframe['like'].iloc[0]
+        retweet = dataframe['retweet'].iloc[0]
+        rtcomment = dataframe['rtcomment'].iloc[0]
+        visu = dataframe['visu'].iloc[0]
+        comment = dataframe['comment'].iloc[0]
+        id = dataframe['id'].iloc[0]
+        text = dataframe['text'].iloc[0]
+        #query = f"update into tweets set idtweet={id}, likes={like},"
+        print(text)
 
 
 
@@ -30,6 +41,7 @@ def listTtstandy() -> List:
         id = table['id'].iloc[i]
         listIds.append(id)
     return listIds
+
 
 
 
@@ -55,3 +67,5 @@ def requestContentTweet(tweet_id:str) -> DataFrame | Dict:
                         'public_metrics.reply_count':'comment',
                         'public_metrics.impression_count':'visu'},inplace=True)
     return dataframe, url
+
+insertNewTweet()

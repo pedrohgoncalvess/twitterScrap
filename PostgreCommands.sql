@@ -1,6 +1,6 @@
+set time zone 'America/Sao_Paulo';
 create table tweets(
-    id serial not null primary key,
-    idtweet bigint not null,
+    idtweet bigint not null primary key,
     bodytt varchar(500),
     urlimg varchar(700),
     urltt varchar(30) not null,
@@ -10,15 +10,13 @@ create table tweets(
     retweets int not null default 0,
     rtcomment int not null default 0,
     "comment" int not null default 0,
-    created_at timestamp not null ,
-    atualized_at timestamp default current_timestamp at time zone 'America/Sao_Paulo'
-
+    atualized_at timestamp default current_timestamp
 );
 
 create table tweetsStandby(
     idtweet bigint not null primary key,
     created_at timestamp not null,
-    scraped_at timestamp default current_timestamp at time zone 'America/Sao_Paulo'
+    scraped_at timestamp default current_timestamp
 );
 
 create or replace function attSitu() returns trigger as $$
@@ -30,4 +28,3 @@ $$ language plpgsql;
 
 create or replace trigger attSituTweetsStandby after insert on tweetsmemes
     for each row execute function attSitu();
-
