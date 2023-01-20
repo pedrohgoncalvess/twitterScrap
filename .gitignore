@@ -1,5 +1,5 @@
-Disc_scrap.py
-tweetsInfos.py
-.env
-tests
-.pytest_cache
+/Disc_scrap.py
+/.env
+/tweetsInfos.py
+/tests
+/.pytest_cache
