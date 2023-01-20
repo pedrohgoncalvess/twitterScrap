@@ -2,8 +2,8 @@ set time zone 'America/Sao_Paulo';
 create table tweets(
     idtweet bigint not null primary key,
     bodytt varchar(500),
-    urlimg varchar(700),
-    urltt varchar(30) not null,
+    urlimg varchar(200),
+    urltt varchar(50) not null,
     typemidia char(5),
     impressions int not null default 0,
     likes int not null default 0,
@@ -16,7 +16,7 @@ create table tweets(
 create table tweetsStandby(
     idtweet bigint not null primary key,
     created_at timestamp not null,
-    scraped_at timestamp default current_timestamp
+    scraped_at timestamp
 );
 
 create or replace function attSitu() returns trigger as $$
