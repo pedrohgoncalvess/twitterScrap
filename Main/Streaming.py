@@ -2,7 +2,7 @@ import datetime
 from datetime import datetime
 import time
 import tweepy
-from Main.Authentication import environment_variables
+from authentication import environment_variables
 from Databases.PostgreSQL import connect
 
 

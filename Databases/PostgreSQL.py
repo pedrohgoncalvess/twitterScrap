@@ -2,7 +2,7 @@ import pandas as pd
 import psycopg2
 from psycopg2.extensions import connection
 from dotenv import load_dotenv
-from Main.Authentication import environment_variables
+from authentication import environment_variables
 from sqlalchemy.engine.base import Engine
 from sqlalchemy import create_engine
 

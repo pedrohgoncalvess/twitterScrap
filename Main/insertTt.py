@@ -1,13 +1,9 @@
-import time
 import requests
 import pandas as pd
 import json
-from pandas import DataFrame
 from pandas import json_normalize
 from Databases.PostgreSQL import connect
-from datetime import timedelta
-import datetime
-from Main.Authentication import bearer_token
+from authentication import bearer_token
 from pandas.core.frame import DataFrame
 from typing import Dict,List
 from sideFunctions import valiStatusCode as valistts
@@ -54,6 +50,7 @@ def treatmentDataTweet(dataframe:DataFrame,urlimg:Dict) -> Dict | Dict:
     try:
         urltt = text.split('https://t.co')[1]
         urltt = 'https://t.co' + urltt
+        urltt = urltt[0:23]
         text = text.split('https://t.co')[0]
     except:
         urltt = 'not-url'
@@ -102,4 +99,4 @@ def requestContentTweet(tweet_id:str) -> DataFrame | Dict:
                         'public_metrics.impression_count':'visu'},inplace=True)
     return dataframe, url
 
-insertNewTweet()
+#insertNewTweet()

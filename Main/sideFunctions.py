@@ -6,7 +6,7 @@ import datetime
 from pandas import DataFrame
 
 from Databases.PostgreSQL import connect
-from Main.Authentication import bearer_token
+from authentication import bearer_token
 
 
 def timeBaser() -> str:

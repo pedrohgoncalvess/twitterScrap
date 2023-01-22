@@ -1,6 +1,6 @@
 from Databases.PostgreSQL import engineSQL
 from sideFunctions import valiStatusCode
-from Authentication import bearer_token
+from authentication import bearer_token
 
 import requests
 from pandas import DataFrame

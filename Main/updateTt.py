@@ -1,4 +1,4 @@
-from Authentication import client_auth,bearer_token
+from authentication import client_auth,bearer_token
 from sideFunctions import timeBaser, valiStatusCode
 from Databases.PostgreSQL import connect
 
