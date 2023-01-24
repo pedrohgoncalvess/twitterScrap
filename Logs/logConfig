@@ -1,0 +1,9 @@
+[configs]
+
+path = C:\Users\Pedro\Desktop\WorkSpace\Projetos\pipelineSseraTweets\Logs
+archives = streaming,request,update,insert
+length_message = 40
+levels = INFO,WARN,TRACE,ERROR,FATAL,CRITICAL
+date_format = %d/%m/%Y-%H:%M:%S
+
+

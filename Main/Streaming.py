@@ -33,7 +33,7 @@ class Streaming(tweepy.StreamingClient):
         print("O erro de requisição.")
         self.on_connect()
 
-    def log(self, log: str,nivel: str,status: str):
+    def log(self, log: str,level: str,status: str,method='streamingLogs'):
         pass
 
 

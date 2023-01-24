@@ -2,12 +2,13 @@ import requests
 import pandas as pd
 import json
 from pandas import json_normalize
-from Databases.PostgreSQL import connect
-from authentication import bearer_token
 from pandas.core.frame import DataFrame
 from typing import Dict,List
-from sideFunctions import valiStatusCode as valistts
 
+from sideFunctions import valiStatusCode as valistts
+from Databases.PostgreSQL import connect
+from authentication import bearer_token
+from Logs.logModule import writeLog
 
 
 def insertNewTweet():
@@ -20,8 +21,27 @@ def insertNewTweet():
                 f"retweets,rtcomment,comment) values ({dicio['idtweet']},'{dicio['text']}'," \
                 f"'{url['url']}','{dicio['urltt']}','{url['type']}',{dicio['impressions']},{dicio['like']}," \
                 f"{dicio['retweet']},{dicio['rtcomment']},{dicio['comment']})"
-        cursor.execute(query)
-        print(f"O tweet {dicio['idtweet']} foi adicionado")
+        logDict = {'event': 'Insert', 'level': 'notification',
+                   'msg': f"Tweet {dicio['idtweet']} has been added | Query: {query}"}
+
+        try:
+            writeLog('insertLogs',logDict)
+        except:
+            query = f"insert into tweets (idtweet,bodytt,urlimg,urltt,typemidia,impressions,likes," \
+                    f"retweets,rtcomment,comment) values ({dicio['idtweet']},'NOT_SUPPORT_EMOJES'," \
+                    f"'{url['url']}','{dicio['urltt']}','{url['type']}',{dicio['impressions']},{dicio['like']}," \
+                    f"{dicio['retweet']},{dicio['rtcomment']},{dicio['comment']})"
+            logDict = {'event': 'Insert', 'level': 'notification',
+                       'msg': f"Tweet {dicio['idtweet']} has been added | Query: {query}"}
+            writeLog('insertLogs', logDict)
+
+        try:
+            cursor.execute(query)
+        except Exception as error:
+            logDictError = {'event': 'Insert', 'level': 'critical',
+                       'msg': f"Tweet {dicio['idtweet']} has been not added | Error: {error.__str__()}"}
+            writeLog('insertLogs', logDictError)
+
     connect().close()
 
 
@@ -56,7 +76,6 @@ def treatmentDataTweet(dataframe:DataFrame,urlimg:Dict) -> Dict | Dict:
         urltt = 'not-url'
         text = text
 
-    print(urltt)
     dicio = {'like':like,'retweet':retweet,'idtweet':id,
              'text':text,'urltt':urltt,
              'rtcomment':rtcomment,'impressions':visu,
@@ -99,4 +118,4 @@ def requestContentTweet(tweet_id:str) -> DataFrame | Dict:
                         'public_metrics.impression_count':'visu'},inplace=True)
     return dataframe, url
 
-#insertNewTweet()
+insertNewTweet()

@@ -7,6 +7,7 @@ from pandas import DataFrame
 
 from Databases.PostgreSQL import connect
 from authentication import bearer_token
+from Logs.logModule import writeLog
 
 
 def timeBaser() -> str:
@@ -54,8 +55,7 @@ def valiStatusCode() -> bool:
     while req.status_code != 200:
         time.sleep(240)
         req = requests.get(url=url, headers=headers)
-        hora = datetime.datetime.now()
-        print(f"Hora da tentativa {hora}, o status da requisição é {req.status_code}")
+        dictLogRequest = {'event':'Request','level':''}
 
 
     requisicao = True
